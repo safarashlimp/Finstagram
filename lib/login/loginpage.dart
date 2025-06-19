@@ -48,7 +48,9 @@ class _LoginpageState extends State<Loginpage> {
 
   Widget _loginButton() {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: () {
+        _loginUser();
+      },
       minWidth: _deviceWidth! * 0.70,
       height: _deviceHieght! * 0.06,
       color: Colors.red,
@@ -91,7 +93,7 @@ class _LoginpageState extends State<Loginpage> {
         validator: (_value) {
           bool _result = _value!.contains(
               RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'));
-          _result ? null : "please enter a valid email";
+          return _result ? null : "please enter a valid email";
         });
   }
 
@@ -106,9 +108,16 @@ class _LoginpageState extends State<Loginpage> {
           });
         },
         validator: (_value) {
-          _value!.length > 6
+          return _value!.length > 6
               ? null
               : "please enter a password is greater than 6 charector";
         });
+  }
+
+  void _loginUser() {
+    print(_loginFormKey.currentState!.validate());
+    if (_loginFormKey.currentState!.validate()) {
+      _loginFormKey.currentState!.save();
+    }
   }
 }
