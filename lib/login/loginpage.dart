@@ -10,6 +10,9 @@ class Loginpage extends StatefulWidget {
 
 class _LoginpageState extends State<Loginpage> {
   double? _deviceHieght, _deviceWidth;
+  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  String? _email;
+  String? _password;
   @override
   Widget build(BuildContext context) {
     _deviceHieght = MediaQuery.of(context).size.height;
@@ -25,6 +28,7 @@ class _LoginpageState extends State<Loginpage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _titleWidget(),
+                _loginFormWidget(),
                 _loginButton(),
               ],
             ),
@@ -54,5 +58,57 @@ class _LoginpageState extends State<Loginpage> {
             color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
       ),
     );
+  }
+
+  Widget _loginFormWidget() {
+    return Container(
+      height: _deviceHieght! * 0.20,
+      child: Form(
+          key: _loginFormKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _emailTextField(),
+              _passwordTextField(),
+            ],
+          )),
+    );
+  }
+
+  Widget _emailTextField() {
+    return TextFormField(
+        obscureText: true,
+        decoration: const InputDecoration(
+          hintText: 'email...',
+        ),
+        onSaved: (_value) {
+          setState(() {
+            _email = _value;
+          });
+        },
+        validator: (_value) {
+          bool _result = _value!.contains(
+              RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'));
+          _result ? null : "please enter a valid email";
+        });
+  }
+
+  Widget _passwordTextField() {
+    return TextFormField(
+        decoration: InputDecoration(
+          hintText: 'password...',
+        ),
+        onSaved: (_value) {
+          setState(() {
+            _password = _value;
+          });
+        },
+        validator: (_value) {
+          _value!.length > 6
+              ? null
+              : "please enter a password is greater than 6 charector";
+        });
   }
 }
