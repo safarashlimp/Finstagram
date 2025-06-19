@@ -1,4 +1,6 @@
 import 'package:fingram/home/home.dart';
+import 'package:fingram/login/loginpage.dart';
+import 'package:fingram/register/registerpage.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,7 +13,12 @@ title: "Finstagram",
 theme: ThemeData(
   primarySwatch: Colors.red
 ),
-home: HomeView(),
+initialRoute: "login",
+//home: HomeView(),
+routes: {
+  "register":(context) => Registerpage(),
+  "login" : (context)=> Loginpage(),
+},
   );
 
   }
