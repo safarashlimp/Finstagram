@@ -18,6 +18,7 @@ initialRoute: "login",
 routes: {
   "register":(context) => Registerpage(),
   "login" : (context)=> Loginpage(),
+  "home":(context)=> HomeView(),
 },
   );
 
