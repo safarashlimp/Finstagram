@@ -136,7 +136,7 @@ class _RegisterpageState extends State<Registerpage> {
 
   Widget _registerButton() {
     return MaterialButton(
-      onPressed: () {},
+      onPressed:()=> _registerUser(),
       minWidth: _deviceWidth! * 0.50,
       height: _deviceHieght! * 0.05,
       color: Colors.red,
@@ -146,5 +146,11 @@ class _RegisterpageState extends State<Registerpage> {
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
       ),
     );
+  }
+  void _registerUser(){
+    if( _registerFormKey.currentState!.validate() && _image != null ){
+    _registerFormKey.currentState!.save();
+    print('Valid');
+    }
   }
 }
