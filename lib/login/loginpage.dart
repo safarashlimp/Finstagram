@@ -30,6 +30,7 @@ class _LoginpageState extends State<Loginpage> {
                 _titleWidget(),
                 _loginFormWidget(),
                 _loginButton(),
+                _registerPageLink()
               ],
             ),
           ),
@@ -112,6 +113,19 @@ class _LoginpageState extends State<Loginpage> {
               ? null
               : "please enter a password is greater than 6 charector";
         });
+  }
+
+  Widget _registerPageLink() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, "register");
+      },
+      child: const Text(
+        "don't have an account? ",
+        style: TextStyle(
+            color: Colors.black, fontSize: 15, fontWeight: FontWeight.w200),
+      ),
+    );
   }
 
   void _loginUser() {
