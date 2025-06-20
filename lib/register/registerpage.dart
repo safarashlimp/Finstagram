@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Registerpage extends StatefulWidget {
   const Registerpage({super.key});
@@ -13,6 +13,7 @@ class _RegisterpageState extends State<Registerpage> {
   double? _deviceHieght, _deviceWidth;
   GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
   String? _name, _email, _password;
+  File? _image;
   @override
   Widget build(BuildContext context) {
     _deviceHieght = MediaQuery.of(context).size.height;
@@ -28,6 +29,7 @@ class _RegisterpageState extends State<Registerpage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _titleWidget(),
+                    _profileImageWidget(),
                     _registrationForm(),
                     _registerButton()
                   ],
@@ -59,6 +61,28 @@ class _RegisterpageState extends State<Registerpage> {
               _emailTextField()
             ],
           )),
+    );
+  }
+
+  Widget _profileImageWidget() {
+    var _imageProvider = _image != null
+        ? FileImage(_image!)
+        : const NetworkImage('https://i.pravatar.cc/300');
+    return GestureDetector(
+      onTap: () {
+        FilePicker.platform.pickFiles(type: FileType.image).then((_result) {
+          setState(() {
+            _image = File(_result!.files.first.path!);
+          });
+        });
+      },
+      child: Container(
+        height: _deviceHieght! * 0.15,
+        width: _deviceWidth! * 0.15,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover, image: _imageProvider as ImageProvider)),
+      ),
     );
   }
 
@@ -109,8 +133,6 @@ class _RegisterpageState extends State<Registerpage> {
               : "please enter a password is greater than 6 charector";
         });
   }
-
- 
 
   Widget _registerButton() {
     return MaterialButton(
