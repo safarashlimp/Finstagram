@@ -1,3 +1,5 @@
+import 'package:fingram/pages/feed_page.dart';
+import 'package:fingram/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -9,6 +11,10 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _currentPage = 0 ;
+  final List<Widget> _pages = [
+  FeedPage(),
+  ProfilePage(),  
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +37,7 @@ class _HomeViewState extends State<HomeView> {
         ],
       ),
       bottomNavigationBar:_bottomNavigationBar() ,
+      body: _pages [_currentPage],
     );
   }
 
