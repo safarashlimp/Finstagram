@@ -1,4 +1,4 @@
-# fingram
+# finstagram
 
 A new Flutter project.
 
